@@ -2,7 +2,7 @@
 <script src="inputs.js" defer></script>
 <script src="text-areas.js" defer></script>
 
-<input-limited id="a" limit=10></input-limited>
+<input-limited id="a" limit=10 value= "texter"></input-limited>
 <input-limited id="b" limit=100></input-limited>
 <textarea-limited id="c" limit=50></textarea-limited>
 <textarea-limited id="d" limit=500></textarea-limited>
@@ -18,10 +18,14 @@
 <button id="write-b" class="btn btn-primary">Write "test" to B</button>
 <button id="write-c" class="btn btn-primary">Write "test" to C</button>
 <button id="write-d" class="btn btn-primary">Write "test" to D</button>
+<span>style with shadow</span>
 
+<input class="form-control">
+ 
 <script>
 
-var a = document.getElementById("a");
+var a = document.querySelector('#a');
+console.log('a: ' + a.value);
 var b = document.getElementById("b");
 var c = document.getElementById("c");
 var d = document.getElementById("d");

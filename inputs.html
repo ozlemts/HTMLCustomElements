@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="https://cdn.vklab.net/bootstrap.css">
+<script src="inputs.js" defer></script>
+<script src="text-areas.js" defer></script>
+
+<input-limited id="a" limit=10></input-limited>
+<input-limited id="b" limit=100></input-limited>
+<textarea-limited id="c" limit=50></textarea-limited>
+<textarea-limited id="d" limit=500></textarea-limited>
+
+<button id="read-a" class="btn btn-primary">Read A</button>
+<button id="read-b" class="btn btn-primary">Read B</button>
+<button id="read-c" class="btn btn-primary">Read C</button>
+<button id="read-d" class="btn btn-primary">Read D</button>
+
+<hr>
+
+<button id="write-a" class="btn btn-primary">Write "test" to A</button>
+<button id="write-b" class="btn btn-primary">Write "test" to B</button>
+<button id="write-c" class="btn btn-primary">Write "test" to C</button>
+<button id="write-d" class="btn btn-primary">Write "test" to D</button>
+
+<script>
+
+var a = document.getElementById("a");
+var b = document.getElementById("b");
+var c = document.getElementById("c");
+var d = document.getElementById("d");
+
+document.getElementById("read-a").onclick = function(){ alert(a.value) };
+document.getElementById("read-b").onclick = function(){ alert(b.value) };
+document.getElementById("read-c").onclick = function(){ alert(c.value) };
+document.getElementById("read-d").onclick = function(){ alert(d.value) };
+
+document.getElementById("write-a").onclick = function(){ a.value = "test"; };
+document.getElementById("write-b").onclick = function(){ b.value = "test"; };
+document.getElementById("write-c").onclick = function(){ c.value = "test"; };
+document.getElementById("write-d").onclick = function(){ d.value = "test"; };
+
+</script>

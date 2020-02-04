@@ -55,7 +55,12 @@ customElements.define('textarea-limited', class extends HTMLElement
 
 	// this method is invoked when value attribute is written
 	set value(val)
-	{	this.textarea.value = val;
+	{	
+		if (val.length > this.getAttribute('limit')) {
+			alert("Value length is bigger than the limit. So it is trimmed")
+			val = val.substring(0, this.getAttribute('limit'));
+		};
+		this.textarea.value = val;
 
 	}
 });

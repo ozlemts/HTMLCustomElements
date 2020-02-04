@@ -52,7 +52,7 @@ customElements.define('input-limited', class extends HTMLElement
 	// this method is invoked when value attribute is read
 	get value()
 	{	
-		return this.querySelector("input").value;
+		return this.input.value;
 	}
 
 	// this method is invoked when value attribute is written

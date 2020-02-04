@@ -49,7 +49,7 @@ customElements.define('textarea-limited', class extends HTMLElement
 	get value()
 	{
 		//console.log('inside getter: ' + this.innerHTML)
-		return this.querySelector("textarea").value;
+		return this.textarea.value;
 		
 	}
 

@@ -5,32 +5,43 @@ customElements.define('textarea-limited', class extends HTMLElement
 	// this method is invoked when component is ready
 	connectedCallback()
 	{
-
+		//get attributes from custom elements
+		const LIMIT = this.getAttribute('limit');
 		
+		//create custom elements dom 
 		this.innerHTML = 
 		`
-		<style> .span {color: red }</style>
-		<div>
+		<style> .char-counter {position : absolute; bottom: 2px; right: 2px; color: grey }</style>
+		<form>
 			<div class="input-group">
-				<textarea class="form control" placeholder= "limited text area"></textarea>
+				<textarea class="w-100 form control" placeholder= "limited text area" rows="3"></textarea>
 				<span class="char-counter" limit=50></span>
 			</div>
-		</div>
+		</form>
 		`
-		//console.log("all 2" + this.querySelector("textarea").value);
+		// create variables to modify 
 		const TEXTAREA = this.querySelector("textarea");
 		const COUNTER = this.querySelector("span");
-		const LIMIT = this.getAttribute('limit');
-		TEXTAREA.addEventListener("input", e => {
-			let remained_char = LIMIT - e.target.value.length
-			prevent_writing(remained_char);
-			COUNTER.innerText = LIMIT - e.target.value.length;
+
+		//create property 
+		this.textarea = this.querySelector("textarea");
+		this.counter = this.querySelector("span");
+		this.counter.innerText = LIMIT;
+		
+		//set event listener to watch input size 
+		this.textarea.addEventListener("input", e => {
+			let value_lenght = e.target.value.length;
+			set_counter(value_lenght);
 		})
 
-		function prevent_writing(lenght) {
-			if (lenght <= -1) {
+		function set_counter(lenght) {
+			let remained_char = LIMIT - lenght;
+			if (remained_char < 0) {
+				COUNTER.innerText = 0;
 				TEXTAREA.value = TEXTAREA.value.substring(0, LIMIT);
+				remained_char = LIMIT - TEXTAREA.value.length;
 			}
+			COUNTER.innerText = remained_char;
 		}
 	}
 
@@ -44,7 +55,7 @@ customElements.define('textarea-limited', class extends HTMLElement
 
 	// this method is invoked when value attribute is written
 	set value(val)
-	{
-		this.querySelector("textarea").value = val;
+	{	this.textarea.value = val;
+
 	}
 });

@@ -6,9 +6,9 @@ customElements.define('input-limited', class extends HTMLElement
 	connectedCallback()
 	{
 		//console.log(this);
-		const limit = this.getAttribute('limit');
+
 		//console.log('limit = ' + limit);
-		
+		const LIMIT = this.getAttribute('limit');
 
 		//create input tag 
 		this.input = document.createElement('input');
@@ -16,11 +16,11 @@ customElements.define('input-limited', class extends HTMLElement
 		this.input.setAttribute('type','text');
 		this.input.setAttribute('placeholder','e-mail');
 		this.input.value = 'Default Value';
-		this.input.count = this.input.value.length;
+	
 
 		var char_counter = document.createElement('span');
 		char_counter.setAttribute('class','char-counter');
-		char_counter.setAttribute('limit', limit);
+		char_counter.setAttribute('limit', LIMIT);
 
 		var style = document.createElement('style');
 		style.textContent = `.form-control { color: green }`;
@@ -29,16 +29,19 @@ customElements.define('input-limited', class extends HTMLElement
 		this.appendChild(char_counter);
 		this.appendChild(style);
 
+		
+		this.querySelector("span").innerText = LIMIT;
+
 		this.querySelector("input").addEventListener("input", 
 			e => {
 				console.log(e.target.value.length);
 				console.log(this);
-				this.querySelector("span").innerText = (limit - e.target.value.length);
+				this.querySelector("span").innerText = (LIMIT - e.target.value.length);
 				console.log(this.querySelector("span").innerText);
 			}
 		)
 		//this.input.count = this.input.value.length;
-		console.log(this.querySelector("input"));
+		console.log(this);
 
 	}
 

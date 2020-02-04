@@ -5,8 +5,8 @@ customElements.define('textarea-limited', class extends HTMLElement
 	// this method is invoked when component is ready
 	connectedCallback()
 	{
+
 		
-		var limit = this.getAttribute('limit');
 		this.innerHTML = 
 		`
 		<style> .span {color: red }</style>
@@ -18,7 +18,25 @@ customElements.define('textarea-limited', class extends HTMLElement
 		</div>
 		`
 		//console.log("all 2" + this.querySelector("textarea").value);
-		this.textarea = this.querySelector("textarea");
+		const TEXTAREA = this.querySelector("textarea");
+		const COUNTER = this.querySelector("span");
+		const LIMIT = this.getAttribute('limit');
+		TEXTAREA.addEventListener("input", e => {
+			let remained_char = LIMIT - e.target.value.length
+			disable(remained_char);
+			COUNTER.innerText = LIMIT - e.target.value.length;
+		})
+
+		function disable(lenght) {
+			if (lenght <= 0) {
+				TEXTAREA.setAttribute('disabled', 'true');
+				console.log(TEXTAREA);
+			}
+			else {
+				TEXTAREA.setAttribute('disabled', 'false');
+				console.log(TEXTAREA);
+			}
+		}
 	}
 
 	// this method is invoked when value attribute is read

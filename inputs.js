@@ -37,7 +37,7 @@ customElements.define('input-limited', class extends HTMLElement
 				console.log(this.querySelector("span").innerText);
 			}
 		)
-		this.input.count = this.input.value.length;
+		//this.input.count = this.input.value.length;
 		console.log(this.querySelector("input"));
 
 	}

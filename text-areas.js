@@ -11,19 +11,19 @@ customElements.define('textarea-limited', class extends HTMLElement
 		//create custom elements dom 
 		this.innerHTML = 
 		`
-		<style> .char-counter {position : absolute; bottom: 2px; right: 2px; color: grey }</style>
-		<form>
-			<div class="input-group">
-				<textarea class="w-100 form control" placeholder= "limited text area" rows="3"></textarea>
-				<span class="char-counter" limit=50></span>
+		<style> .char-counter {position : absolute; bottom: 4px; right: 4px; color: grey ; font-size: .8rem;}</style>
+		<div class="container">
+			<div class="input-group my-2">
+				<textarea class="form control w-100" placeholder= "limited text area" rows="3" ></textarea>
+				<span class="char-counter"></span>
 			</div>
-		</form>
+		</div>
 		`
 		// create variables to modify 
 		const TEXTAREA = this.querySelector("textarea");
 		const COUNTER = this.querySelector("span");
 
-		//create property 
+		//create custom elements properties
 		this.textarea = this.querySelector("textarea");
 		this.counter = this.querySelector("span");
 		this.counter.innerText = LIMIT;

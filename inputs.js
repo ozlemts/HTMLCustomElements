@@ -10,45 +10,50 @@ customElements.define('input-limited', class extends HTMLElement
 		//console.log('limit = ' + limit);
 		const LIMIT = this.getAttribute('limit');
 
-		//create input tag 
-		this.input = document.createElement('input');
-		this.input.setAttribute('class','form-control');
-		this.input.setAttribute('type','text');
-		this.input.setAttribute('placeholder','e-mail');
-		this.input.value = 'Default Value';
+		this.innerHTML = 
+			`
+			<style> .char-counter {position : absolute; bottom: 4px; right: 4px; color: grey ; font-size: .8rem;}</style>
+			<div class="container">
+				<div class="input-group my-2">
+					<input class="form-control" type="text" >
+					<span class="char-counter"></span>
+				</div>
+			</div>
+			`
+		// create variables to modify 
+		const INPUT = this.querySelector("input");
+		const COUNTER = this.querySelector("span");
+
+		//create custom elements properties
+		this.input = this.querySelector("input");
+		this.counter = this.querySelector("span");
+		this.input.innerText = 'Default Value';
+		this.counter.innerText = LIMIT;
+		const PLACEHOLDER = this.getAttribute('placeholder');
+		this.input.setAttribute('placeholder',PLACEHOLDER);
 	
+		//set event listener to watch input size 
+		this.input.addEventListener("input", e => {
+			let value_lenght = e.target.value.length;
+			set_counter(value_lenght);
+		})
 
-		var char_counter = document.createElement('span');
-		char_counter.setAttribute('class','char-counter');
-		char_counter.setAttribute('limit', LIMIT);
-
-		var style = document.createElement('style');
-		style.textContent = `.form-control { color: green }`;
-
-		this.appendChild(this.input);
-		this.appendChild(char_counter);
-		this.appendChild(style);
-
-		
-		this.querySelector("span").innerText = LIMIT;
-
-		this.querySelector("input").addEventListener("input", 
-			e => {
-				console.log(e.target.value.length);
-				console.log(this);
-				this.querySelector("span").innerText = (LIMIT - e.target.value.length);
-				console.log(this.querySelector("span").innerText);
+		function set_counter(lenght) {
+			let remained_char = LIMIT - lenght;
+			if (remained_char < 0) {
+				COUNTER.innerText = 0;
+				INPUT.value = INPUT.value.substring(0, LIMIT);
+				remained_char = LIMIT - INPUT.value.length;
 			}
-		)
-		//this.input.count = this.input.value.length;
-		console.log(this);
+			COUNTER.innerText = remained_char;
+		}
 
 	}
 
 	// this method is invoked when value attribute is read
 	get value()
 	{	
-		return this.input.value;
+		return this.querySelector("input").value;
 	}
 
 	// this method is invoked when value attribute is written

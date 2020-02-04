@@ -23,18 +23,13 @@ customElements.define('textarea-limited', class extends HTMLElement
 		const LIMIT = this.getAttribute('limit');
 		TEXTAREA.addEventListener("input", e => {
 			let remained_char = LIMIT - e.target.value.length
-			disable(remained_char);
+			prevent_writing(remained_char);
 			COUNTER.innerText = LIMIT - e.target.value.length;
 		})
 
-		function disable(lenght) {
-			if (lenght <= 0) {
-				TEXTAREA.setAttribute('disabled', 'true');
-				console.log(TEXTAREA);
-			}
-			else {
-				TEXTAREA.setAttribute('disabled', 'false');
-				console.log(TEXTAREA);
+		function prevent_writing(lenght) {
+			if (lenght <= -1) {
+				TEXTAREA.value = TEXTAREA.value.substring(0, LIMIT);
 			}
 		}
 	}
@@ -43,12 +38,13 @@ customElements.define('textarea-limited', class extends HTMLElement
 	get value()
 	{
 		//console.log('inside getter: ' + this.innerHTML)
-		return this.textarea.value;
+		return this.querySelector("textarea").value;
+		
 	}
 
 	// this method is invoked when value attribute is written
 	set value(val)
 	{
-		this.textarea.value = val;
+		this.querySelector("textarea").value = val;
 	}
 });

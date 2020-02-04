@@ -1,50 +1,52 @@
 
+class InputLimited extends HTMLElement {
+	constructor() {
+		super();
+	}
 
-customElements.define('input-limited', class extends HTMLElement
-{
-	constructor() { super(); }
-	
-	// this method is invoked when component is ready
-	connectedCallback()
-	{
+	connectedCallback() {
 		console.log(this);
 		const limit = this.getAttribute('limit');
 		console.log('limit = ' + limit);
 		const id = this.getAttribute('id');
 		console.log('id = ' + id);
 		
-		var input = document.createElement('input');
-		input.setAttribute('class','form-control');
-		input.setAttribute('placeholder','e-mail');
-		input.value = 'Default Value';
+		this.input = document.createElement('input');
+		this.input.setAttribute('class','form-control');
+		this.input.setAttribute('placeholder','e-mail');
+		this.input.value = 'Default Value';
 
 		//input char count 
-		console.log(input.value.length);
+		console.log('inside connectedCallback val: ' + this.input.value.length);
 
 		var char_counter = document.createElement('span');
 		char_counter.setAttribute('class','char-counter');
-		char_counter.setAttribute('limit', '100');
+		char_counter.setAttribute('limit', limit);
 
 		var style = document.createElement('style');
-		style.textContent = `.form-control { color: green}`;
+		style.textContent = `.form-control { color: green }`;
 
-		this.appendChild(input);
+		this.appendChild(this.input);
 		this.appendChild(char_counter);
 		this.appendChild(style);
-		console.log("all " + this.innerHTML)
+		console.log("all " + this.innerHTML);
 	}
-
 
 	// this method is invoked when value attribute is read
 	get value()
 	{
-		
-		return this.getAttribute('value');
+		console.log('inside getter: ' + this.input);
+		return this.input.value;
 	}
 
 	// this method is invoked when value attribute is written
 	set value(val)
 	{
-		this.setAttribute('value', this.input.value);
+		console.log('inside setter: ' + this.input);
+		this.input.value = val;
 	}
-});
+}
+
+
+console.log('defining input-limited');
+customElements.define('input-limited', InputLimited);

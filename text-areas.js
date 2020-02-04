@@ -10,15 +10,15 @@ customElements.define('textarea-limited', class extends HTMLElement
 		
 		//create custom elements dom 
 		this.innerHTML = 
-		`
-		<style> .char-counter {position : absolute; bottom: 4px; right: 4px; color: grey ; font-size: .8rem;}</style>
-		<div class="container">
-			<div class="input-group my-2">
-				<textarea class="form control w-100" placeholder= "limited text area" rows="3" ></textarea>
-				<span class="char-counter"></span>
+			`
+			<style> .char-counter {z-index: 1000; position : absolute; bottom: 4px; right: 4px; color: grey ; font-size: .8rem;}</style>
+			<div class="container">
+				<div class="input-group my-2">
+					<textarea class="form control w-100" placeholder= "limited text area" rows="3" ></textarea>
+					<span class="char-counter"></span>
+				</div>
 			</div>
-		</div>
-		`
+			`
 		// create variables to modify 
 		const TEXTAREA = this.querySelector("textarea");
 		const COUNTER = this.querySelector("span");
@@ -32,7 +32,7 @@ customElements.define('textarea-limited', class extends HTMLElement
 		this.textarea.addEventListener("input", e => {
 			let value_lenght = e.target.value.length;
 			set_counter(value_lenght);
-		})
+		});
 
 		function set_counter(lenght) {
 			let remained_char = LIMIT - lenght;
